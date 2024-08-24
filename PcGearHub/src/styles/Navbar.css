@@ -1,0 +1,67 @@
+.custom-navbar {
+    background-color: #343a40; /* Dark background color for the navbar */
+  }
+  
+  .custom-navbar .navbar-brand {
+    color: #ffffff; /* White color for the logo and text */
+  }
+  
+  .custom-navbar .navbar-brand img {
+    margin-right: 0.5rem; /* Adjust space between logo and text */
+  }
+  
+  .custom-navbar .nav-link {
+    color: #ffffff; /* White color for nav items */
+  }
+  
+  .custom-navbar .nav-link:hover {
+    color: #f8f9fa; /* Light color on hover */
+  }
+  
+  .custom-navbar .navbar-toggler {
+    border-color: #ffffff; /* White border for the toggle button */
+  }
+  
+  .custom-navbar .form-control {
+    border-radius: 10px; /* Rounded corners for the search bar */
+  }
+  
+  .custom-navbar .btn-outline-light {
+    color: #ffffff; /* White color for the search button text */
+    border-color: #ffffff; /* White border for the search button */
+  }
+  
+  .custom-navbar .btn-outline-light:hover {
+    background-color: #ffffff; /* White background on hover */
+    color: #343a40; /* Dark text color on hover */
+  }
+  /* styles/Navbar.css */
+
+.custom-navbar {
+  background-color: #343a40; /* Navbar arka plan rengi */
+  height: 80px; /* Navbar yüksekliği */
+}
+
+.custom-navbar .navbar-brand {
+  font-size: 1.75rem; /* Logo ve metin font boyutu */
+}
+
+.custom-navbar .nav-link {
+  font-size: 1.2rem; /* Menü linklerinin font boyutu */
+}
+
+.custom-navbar .form-control {
+  font-size: 1rem; /* Arama çubuğunun font boyutu */
+}
+
+.search-button {
+  font-size: 1.2rem; /* Arama butonunun font boyutu */
+}
+
+.custom-navbar .navbar-toggler {
+  font-size: 1.5rem; /* Hamburger menü ikonunun font boyutu */
+}
+
+.custom-navbar .navbar-toggler-icon {
+  background-image: none; /* Hamburger menü ikonunu özelleştirmek isterseniz */
+}
