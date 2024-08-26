@@ -1,0 +1,36 @@
+/* src/styles/Footer.css */
+
+.footer {
+    background-color: #343a40; /* Koyu gri arka plan */
+    color: #ffffff; /* Beyaz metin rengi */
+    padding: 2rem 0;
+    width: 100%;
+  }
+  
+  .footer h5 {
+    margin-bottom: 1rem;
+  }
+  
+  .footer p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer .social-media {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .footer .social-media a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+  
+  .footer .social-media a:hover {
+    color: #f8f9fa; /* Hover rengi */
+  }
+  
+  .footer .text-center {
+    margin-top: 2rem;
+  }
+  

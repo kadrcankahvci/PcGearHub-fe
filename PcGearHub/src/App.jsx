@@ -9,8 +9,11 @@ import Register from './Pages/Register.jsx';
 import Profile from './Pages/Profile.jsx';
 import AdminDashboard from './Pages/AdminDashboard';
 import ManageProducts from './Pages/ManageProducts.jsx';
-
-
+import { Nav } from 'react-bootstrap';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
+import Categories from './pages/Categories.jsx';
+import Footer from './Components/Footer.jsx';
 
 
 
@@ -21,11 +24,17 @@ function App() {
 
  
   return (<>
+  <NavigationBar/>
     <Routes>
     <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/categories' element={<Categories />} />
+       
+        
       {isAdmin && (
         <>
         <Route path="/admin/dashboard" element={isAdmin ? <AdminDashboard /> : <Login />} />
@@ -33,7 +42,9 @@ function App() {
       
         </>
       )}
+       
     </Routes>
+    <Footer/>
   </>
   )
 }

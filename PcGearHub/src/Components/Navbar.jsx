@@ -1,9 +1,11 @@
+// src/components/NavigationBar.jsx
+
 import React from 'react';
-import { Navbar, Nav, Container, Form, FormControl, Button, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom';
-import { getCookie,eraseCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
+import { getCookie, eraseCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
 import myIcon from '../assets/hacker.png';
 import '../styles/Navbar.css';
 
@@ -26,24 +28,29 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Computer Peripherals" id="basic-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/mouse">Mouse</NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/keyboard">Keyboard</NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/monitor">Monitor</NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/printer">Printer</NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/headset">Headset</NavDropdown.Item>
-            </NavDropdown>
-
-            
+            <Nav.Link as={NavLink} to="/categories" exact className="nav-link">
+              Categories
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/about" exact className="nav-link">
+              About
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact" exact className="nav-link">
+              Contact
+            </Nav.Link>
           </Nav>
 
-
           <Form className="d-flex ms-auto">
-            <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search" />
-            <Button variant="outline-light">
+            <FormControl type="search" placeholder="Search" className="me-2 form-control" aria-label="Search" />
+            <Button variant="outline-light" className="search-button">
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </Form>
+
+          <Nav className="ms-2">
+            <Nav.Link as={NavLink} to="/" exact className="nav-link home-link">
+              HOME
+            </Nav.Link>
+          </Nav>
 
           <Nav className="ms-3">
             {isLoggedIn ? (
@@ -60,12 +67,10 @@ const NavigationBar = () => {
             ) : (
               <Nav.Link as={Link} to="/login">
                 <FontAwesomeIcon icon={faUser} size="lg" className="me-2" />
-                Login
               </Nav.Link>
             )}
             <Nav.Link as={Link} to="/cart">
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-              <span className="ms-1">(0)</span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
