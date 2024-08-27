@@ -13,7 +13,8 @@ import { Nav } from 'react-bootstrap';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Categories from './pages/Categories.jsx';
-import Footer from './Components/Footer.jsx';
+// import Footer from './Components/Footer.jsx/index.js';
+import { AuthProvider } from './contexs/authcontext.jsx';
 
 
 
@@ -22,8 +23,10 @@ import Footer from './Components/Footer.jsx';
 function App() {
   const isAdmin = getCookie('isAdmin'); // Admin kontrolü için çerezden bilgi al
 
+
  
   return (<>
+  <AuthProvider>
   <NavigationBar/>
     <Routes>
     <Route path='/' element={<Home />} />
@@ -44,7 +47,8 @@ function App() {
       )}
        
     </Routes>
-    <Footer/>
+    
+    </AuthProvider>
   </>
   )
 }

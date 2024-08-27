@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form, Button, Alert, Tabs, Tab } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonunu import et
 import '../styles/Login.css'; // Özel stil dosyanızı import edin
+import { AuthContext } from '../contexs/authcontext';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [activeKey, setActiveKey] = useState('user'); // Tab seçimi için state
-  const navigate = useNavigate(); // Yönlendirme için hook
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [error, setError] = useState('');
+  // const [success, setSuccess] = useState('');
+  // const [activeKey, setActiveKey] = useState('user'); // Tab seçimi için state
+  // const navigate = useNavigate(); // Yönlendirme için hook
+  const { password,setPassword,error, setError,success, setSuccess,activeKey, setActiveKey,navigate,email, setEmail} = useContext(AuthContext)
 
   const handleLogin = (e) => {
     e.preventDefault();
