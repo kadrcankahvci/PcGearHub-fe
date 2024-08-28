@@ -5,7 +5,7 @@ import NavigationBar from '../Components/Navbar';
 const AdminDashboard = () => {
   return (
     <>
-      <NavigationBar />
+      
       <Container className="mt-4">
         <h2 className="text-center mb-4">Admin Dashboard</h2>
         <Row>

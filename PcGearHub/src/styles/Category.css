@@ -1,0 +1,26 @@
+.category-page {
+    margin-top: 20px;
+  }
+  
+  .card {
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  .categories-img-container {
+    width: 100%;
+    height: 200px; /* Resimlerin yüksekliğini sabitleyin */
+    overflow: hidden; /* Taşma durumunda görünmemesi için */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .categories-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Resmin kapsayıcıya uyacak şekilde kesilmesini sağlar */
+  }

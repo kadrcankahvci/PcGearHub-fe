@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Profile.css'; // Özel stil dosyanızı import edin
 
 const Profile = () => {
-  return (
+  return ( 
     <Container className="profile-container mt-4">
       <Row>
         {/* Kullanıcı Bilgileri */}

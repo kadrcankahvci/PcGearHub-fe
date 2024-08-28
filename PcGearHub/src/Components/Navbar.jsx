@@ -1,19 +1,24 @@
 // src/components/NavigationBar.jsx
 
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom';
-import { getCookie, eraseCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
+import { getCookie, eraseCookie, setCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
 import myIcon from '../assets/hacker.png';
 import '../styles/Navbar.css';
+import { AuthContext } from '../contexts/authcontext';
+
 
 const NavigationBar = () => {
-  const isLoggedIn = getCookie('isLoggedIn'); // Kullanıcının giriş yapıp yapmadığını kontrol et
+
+const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext)  // Kullanıcının giriş yapıp yapmadığını kontrol et
 
   const handleLogout = () => {
+    setIsLoggedIn(getCookie('isLoggedIn'));
     eraseCookie('isLoggedIn');
+    
     window.location.href = '/'; // Çıkış yaptıktan sonra ana sayfaya yönlendir
   };
 
@@ -28,13 +33,13 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/categories" exact className="nav-link">
+            <Nav.Link as={NavLink} to="/categories"  className="nav-link">
               Categories
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/about" exact className="nav-link">
+            <Nav.Link as={NavLink} to="/about"  className="nav-link">
               About
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/contact" exact className="nav-link">
+            <Nav.Link as={NavLink} to="/contact"  className="nav-link">
               Contact
             </Nav.Link>
           </Nav>
@@ -47,7 +52,7 @@ const NavigationBar = () => {
           </Form>
 
           <Nav className="ms-2">
-            <Nav.Link as={NavLink} to="/" exact className="nav-link home-link">
+            <Nav.Link as={NavLink} to="/"  className="nav-link home-link">
               HOME
             </Nav.Link>
           </Nav>

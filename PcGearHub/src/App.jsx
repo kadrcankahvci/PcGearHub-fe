@@ -14,40 +14,23 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Categories from './pages/Categories.jsx';
 // import Footer from './Components/Footer.jsx/index.js';
-import { AuthProvider } from './contexs/authcontext.jsx';
+import { AuthProvider } from './contexts/authcontext.jsx';
+import GearApp from './GearApp.jsx';
 
 
 
 
 
 function App() {
-  const isAdmin = getCookie('isAdmin'); // Admin kontrolü için çerezden bilgi al
+  const isAdmin = getCookie('isAdmin');
+  const isLoggedIn= getCookie('isLoggedIn');
 
 
  
   return (<>
   <AuthProvider>
-  <NavigationBar/>
-    <Routes>
-    <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/categories' element={<Categories />} />
-       
-        
-      {isAdmin && (
-        <>
-        <Route path="/admin/dashboard" element={isAdmin ? <AdminDashboard /> : <Login />} />
-          <Route path="/admin/manage-products" element={isAdmin ? <ManageProducts /> : <Login />} />
-      
-        </>
-      )}
-       
-    </Routes>
-    
+ 
+    <GearApp/>
     </AuthProvider>
   </>
   )
