@@ -28,7 +28,7 @@ export const TableHeaderComponent= () => { // devam et buraya
    return (
      
      <tbody>
-            {products.map((products) => (
+            {products.map((product) => (
               <tr key={product.productId}>
                 <td>{product.productId}</td>
                 <td>{product.productName}</td>

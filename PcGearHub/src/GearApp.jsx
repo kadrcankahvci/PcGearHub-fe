@@ -21,6 +21,7 @@ import ProductDetail from './Pages/ProductDetail.jsx';
 import CategoryProducts from './Pages/CategoryProducts.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
 import './styles/GearApp.css';
+import CartPage from './Pages/CardPage.jsx';
 
 const GearApp = () => {
     const isAdmin = getCookie('isAdmin');
@@ -35,7 +36,8 @@ const GearApp = () => {
         <Route path='/about' element={<About />} />
         <Route path='/categories' element={<Categories />} />
         <Route path="/profile" element={<ProtectedRoute element={Profile} />} />
-      
+        <Route path='/cart' element={<CartPage />} />
+        
      <Route path="/product/:id" element={<ProductDetail />} /> {/* Ürün detay sayfası için rota */}
      <Route path='/categories/:categoryId' element={<CategoryProducts />} /> {/* Kategori ürünleri sayfası */}
        

@@ -2,7 +2,9 @@ import React from 'react';
 import ProductCard from './ProductCard'; // ProductCard bileşenini import edin
 import products from '../data/products'; // Ürün verilerini import edin
 
+
 const ProductList = () => {
+  
   return (
     <div className="container mt-4">
       <h1>Available Products</h1>

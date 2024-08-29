@@ -15,10 +15,23 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(getCookie('isLoggedIn'))
     const [isAdmin,setIsAdmin]= useState(getCookie('isAdmin'));
+    const [cartItems, setCartItems] = useState([]);
+
+    
+    const addToCart = (product) => {
+      setCartItems((prevItems) => [...prevItems, product]);
+    };
+  
+    // Sepetteki toplam ürün sayısını hesaplama
+    const cartCount = cartItems.length;
+  
+    // Toplam tutarı hesaplama
+    const totalAmount = cartItems.reduce((acc, item) => acc + item.price, 0);
+    
   
     const values = {
-        password,setPassword,error, setError,success, setSuccess,activeKey, setActiveKey,navigate,email, setEmail,isLoggedIn, setIsLoggedIn,isAdmin,setIsAdmin
-    }
+        password,setPassword,error, setError,success, setSuccess,activeKey, setActiveKey,navigate,email, setEmail,isLoggedIn, setIsLoggedIn,isAdmin,setIsAdmin,
+        cartItems,setCartItems,addToCart, cartCount, totalAmount}
     return (
       <AuthContext.Provider value={values}>
         {children}
