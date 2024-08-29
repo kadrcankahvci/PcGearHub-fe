@@ -1,7 +1,7 @@
 // src/components/NavigationBar.jsx
 
 import React, { useContext, useState } from 'react';
-import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Form, FormControl, Button,Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom';
@@ -9,11 +9,15 @@ import { getCookie, eraseCookie, setCookie } from '../Utils/cookieUtils'; // Çe
 import myIcon from '../assets/hacker.png';
 import '../styles/Navbar.css';
 import { AuthContext } from '../contexts/authcontext';
+import { ProductContext } from '../contexts/productcontexts';
 
 
 const NavigationBar = () => {
 
-const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext)  // Kullanıcının giriş yapıp yapmadığını kontrol et
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); 
+  const { cartItems } = useContext(ProductContext);  // Kullanıcının giriş yapıp yapmadığını kontrol et
+  const cartCount = cartItems.length; 
+
 
   const handleLogout = () => {
     setIsLoggedIn(getCookie('isLoggedIn'));
@@ -74,8 +78,13 @@ const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext)  // Kullanıcının g
                 <FontAwesomeIcon icon={faUser} size="lg" className="me-2" />
               </Nav.Link>
             )}
-            <Nav.Link as={Link} to="/cart">
+              <Nav.Link as={Link} to="/cart" className="position-relative">
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+              {cartCount > 0 && ( // Eğer sepette ürün varsa gösterecek
+                <Badge pill bg="danger" className="cart-badge">
+                  {cartCount}
+                </Badge>
+              )}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

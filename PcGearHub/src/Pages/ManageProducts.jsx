@@ -10,7 +10,7 @@ const ManageProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // Düzenlenecek ürün
 
   // Ürün ekleme veya güncelleme modal'ını açma
-  const handleShowModal = (product = null) => {
+  const handleShowModal = (product = null) => { 
     setSelectedProduct(product);
     setShowModal(true);
   };
