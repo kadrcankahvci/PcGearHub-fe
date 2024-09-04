@@ -4,11 +4,12 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../data/products'; // Ürün verilerini import edin
 import { AuthContext } from '../contexts/authcontext'; // AuthContext'i import edin
+import { ProductContext } from '../contexts/productcontext';
 
 const ProductDetail = () => {
   const { id } = useParams(); // URL parametresinden ürün ID'sini alın
   const product = products.find(p => p.productId === parseInt(id)); // Ürünü bul
-  const { addToCart } = useContext(AuthContext); // AuthContext'ten addToCart fonksiyonunu alın
+  const { addToCart } = useContext(ProductContext); // AuthContext'ten addToCart fonksiyonunu alın
 
   if (!product) {
     return <p>Product not found</p>; // Ürün bulunamazsa hata mesajı göster

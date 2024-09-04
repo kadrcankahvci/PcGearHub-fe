@@ -3,9 +3,10 @@ import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Product from '../models/Product';
 import { AuthContext } from '../contexts/authcontext';
+import { ProductContext } from '../contexts/productcontext';
 
 function ProductCard({ product }) {
-  const {addToCart} = useContext(AuthContext);
+ const {addToCart} = useContext(ProductContext);
   return (
     <Card style={{ width: '18rem' }} className="mb-4">
       <Card.Img variant="top" src={product.image} />

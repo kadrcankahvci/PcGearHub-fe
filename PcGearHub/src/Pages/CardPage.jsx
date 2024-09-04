@@ -3,10 +3,11 @@
 import React, { useContext } from 'react';
 import { Table, Container, Button } from 'react-bootstrap';
 import { AuthContext } from '../contexts/authcontext';
+import { ProductContext } from '../contexts/productcontext';
 
 const CartPage = () => {
   // AuthContext'ten gerekli değerleri al
-  const { cartItems, totalAmount, setCartItems } = useContext(AuthContext);
+  const { cartItems, totalAmount, setCartItems } = useContext(ProductContext);
 
   // Sepeti boşaltma işlevi
   const handleEmptyCart = () => {

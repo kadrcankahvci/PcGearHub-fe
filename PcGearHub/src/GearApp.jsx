@@ -32,6 +32,8 @@ const GearApp = () => {
     <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path="/admin/dashboard" element={<ProtectedRoute element={AdminDashboard}  />} />
+     <Route path="/admin/manage-products" element={<ProtectedRoute element={ManageProducts}  />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/categories' element={<Categories />} />
@@ -41,8 +43,7 @@ const GearApp = () => {
      <Route path="/product/:id" element={<ProductDetail />} /> {/* Ürün detay sayfası için rota */}
      <Route path='/categories/:categoryId' element={<CategoryProducts />} /> {/* Kategori ürünleri sayfası */}
        
-     <Route path="/admin/dashboard" element={<ProtectedRoute element={AdminDashboard}  />} />
-     <Route path="/admin/manage-products" element={<ProtectedRoute element={ManageProducts}  />} />
+  
         
      
        

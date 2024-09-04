@@ -1,7 +1,7 @@
 import React,{createContext,useState} from 'react'
 import {  useNavigate } from 'react-router-dom';
 import { getCookie } from '../Utils/cookieUtils';
-
+import { adressGetApi } from '../services/baseService';
 
 
 export const AuthContext = createContext();
@@ -15,23 +15,16 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(getCookie('isLoggedIn'))
     const [isAdmin,setIsAdmin]= useState(getCookie('isAdmin'));
-    const [cartItems, setCartItems] = useState([]);
-
-    
-    const addToCart = (product) => {
-      setCartItems((prevItems) => [...prevItems, product]);
-    };
-  
-    // Sepetteki toplam ürün sayısını hesaplama
-    const cartCount = cartItems.length;
-  
-    // Toplam tutarı hesaplama
-    const totalAmount = cartItems.reduce((acc, item) => acc + item.price, 0);
+   
+   const [Adress, SetAdress] = useState([]);
+   const getAddress = ()=> {
+    SetAdress(adressGetApi());
+   }
     
   
     const values = {
         password,setPassword,error, setError,success, setSuccess,activeKey, setActiveKey,navigate,email, setEmail,isLoggedIn, setIsLoggedIn,isAdmin,setIsAdmin,
-        cartItems,setCartItems,addToCart, cartCount, totalAmount}
+      getAddress, Adress}
     return (
       <AuthContext.Provider value={values}>
         {children}

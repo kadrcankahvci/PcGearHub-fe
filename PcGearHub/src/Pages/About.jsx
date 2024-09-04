@@ -36,12 +36,12 @@ const About = () => {
         <div className="team-members">
           <div className="team-member">
             <img src="https://via.placeholder.com/150" alt="Team Member 1" />
-            <h3>John Doe</h3>
+            <h3> Doktor Efe  </h3>
             <p>Founder & CEO</p>
           </div>
           <div className="team-member">
             <img src="https://via.placeholder.com/150" alt="Team Member 2" />
-            <h3>Jane Smith</h3>
+            <h3>Muhendis Talha</h3>
             <p>CTO</p>
           </div>
           {/* Diğer takım üyeleri */}

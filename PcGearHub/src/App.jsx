@@ -16,6 +16,7 @@ import Categories from './pages/Categories.jsx';
 // import Footer from './Components/Footer.jsx/index.js';
 import { AuthProvider } from './contexts/authcontext.jsx';
 import GearApp from './GearApp.jsx';
+import { ProductContext, ProductProvider } from './contexts/productcontext.jsx';
 
 
 
@@ -28,9 +29,11 @@ function App() {
 
  
   return (<>
+  
   <AuthProvider>
- 
+ <ProductProvider>
     <GearApp/>
+    </ProductProvider>
     </AuthProvider>
   </>
   )

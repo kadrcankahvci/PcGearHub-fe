@@ -9,11 +9,14 @@ import { getCookie, eraseCookie, setCookie } from '../Utils/cookieUtils'; // Çe
 import myIcon from '../assets/hacker.png';
 import '../styles/Navbar.css';
 import { AuthContext } from '../contexts/authcontext';
+import { ProductContext } from '../contexts/productcontext';
 
 
 const NavigationBar = () => {
 
-  const { isLoggedIn, setIsLoggedIn, cartItems, setCartItems } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+  const {cartItems, setCartItems} = useContext(ProductContext);
+  
   
   // Toplam ürün sayısını hesapla
   const cartCount = cartItems.length;
