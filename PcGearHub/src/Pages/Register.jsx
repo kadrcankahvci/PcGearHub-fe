@@ -13,7 +13,7 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate();                                   
+  const navigate = useNavigate();       
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -35,23 +35,25 @@ const Register = () => {
       return;
     }
 
-    try {
+    
       // API'ye POST isteği gönder
-      const response = await axios.post('http://localhost:7005/api/user', newUser);
+      const response = await axios.post('https://localhost:7005/api/User/CreateUser', newUser);
 
       // Başarılı olursa
       if (response.status === 201) { // 201 Created durumu kontrol ediliyor
-        setSuccess('Registration successful!');
+        setSuccess('Account created successfully! You will be redirected to the login page.');
         setError('');
         
-        // Kayıt başarılı olursa, kullanıcıyı başka bir sayfaya yönlendirebilirsin
-        navigate('/login'); // Login sayfasına yönlendirir
+        // 1 saniye sonra kullanıcıyı giriş ekranına yönlendirir
+        setTimeout(() => {
+          navigate('/login');
+        }, 1000);
+      } else {
+        // 201 dışındaki durumlar
+        setError('Unexpected response status. Please try again.');
+        setSuccess('');
       }
-    } catch (err) {
-      // Hata oluşursa
-      setError('Registration failed. Please try again.');
-      setSuccess('');
-    }
+    
   };
 
   return (

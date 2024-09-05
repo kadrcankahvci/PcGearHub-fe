@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Profile.css'; // Özel stil dosyanızı import edin
 import { AuthContext } from '../contexts/authcontext';
 import { adressGetApi } from '../services/baseService';
 
+
 const Profile = () => {
-
-
+  
+ 
   
   return ( 
     <Container className="profile-container mt-4">
