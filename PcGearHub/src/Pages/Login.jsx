@@ -1,56 +1,52 @@
 import React, { useContext } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import '../styles/bla.css'
+import { Link, useNavigate } from 'react-router-dom';
+import '../styles/bla.css';
 import { AuthContext } from '../contexts/authcontext';
-import { getCookie, setCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonunu import et
-
-// Mock kullanıcı verileri
-const mockUsers = [
-  {
-    email: "admin@example.com",
-    password: "admin123",
-    roleId: 1, // Admin
-  },
-  {
-    email: "customer@example.com",
-    password: "customer123",
-    roleId: 2, // Customer
-  }
-];
+import { getCookie, setCookie } from '../Utils/cookieUtils';
+import { loginUser } from '../services/baseService';
 
 const Login = () => {
-  const { password, setPassword, error, setError, success, setSuccess, navigate, email, setEmail, setIsLoggedIn,isAdmin,setIsAdmin } = useContext(AuthContext);
+  const { password, setPassword, error, setError, success, setSuccess, email, setEmail, setIsLoggedIn, setIsAdmin } = useContext(AuthContext);
+  const navigate = useNavigate(); // useNavigate kullanarak yönlendirme işlemleri yapılır
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Kullanıcıyı mock verilerde ara
-    const user = mockUsers.find(
-      (user) => user.email === email && user.password === password
-    );
+    try {
+      // API'ye giriş bilgilerini gönder
+      const { message, user } = await loginUser({ email, password });
+      
+      // Başarılı giriş durumunda
+      if (user) {
+        setSuccess(message);
+        setError('');
 
-    if (user) {
-      setSuccess('Login successful!');
-      setError('');
+        // Çerezleri ayarla
+        setCookie('isLoggedIn', true, 1);
+        setCookie('user', JSON.stringify(user), 1); // Kullanıcı bilgilerini çerezde saklayabilirsiniz
 
-      // Çerez oluştur
-      setCookie('isLoggedIn', true, 1);
-      setIsLoggedIn(getCookie('isLoggedIn'));
+        // Kullanıcının rolüne göre çerez ayarla
+        if (user.roleId === 4) { // Admin rolü
+          setCookie('isAdmin', true, 1);
+          setIsAdmin(true);
+        } else {
+          setCookie('isAdmin', false, 1);
+          setIsAdmin(false);
+        }
 
-      // Role id'ye göre yönlendirme yap
-      if (user.roleId === 1) { // Admin
-        setCookie('isAdmin', true, 1);
-        setIsAdmin(getCookie('isAdmin'));
-        setTimeout(() => navigate('/admin/dashboard'), 1000);
-      } else { // Customer
-        setTimeout(() => navigate('/'), 1000);
+        // Oturum açılmış olarak işaretle
+        setIsLoggedIn(true);
+
+        // Formu temizle
+        setEmail('');
+        setPassword('');
+
+        // Anasayfaya yönlendir
+        navigate('/');
       }
-
-      // Formu temizle
-      setEmail('');
-      setPassword('');
-    } else {
+    } catch (error) {
+      console.error('Login failed:', error.response ? error.response.data : error.message);
       setError('Invalid email or password.');
       setSuccess('');
     }

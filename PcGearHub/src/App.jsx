@@ -17,6 +17,7 @@ import Categories from './pages/Categories.jsx';
 import { AuthProvider } from './contexts/authcontext.jsx';
 import GearApp from './GearApp.jsx';
 import { ProductContext, ProductProvider } from './contexts/productcontext.jsx';
+import { RegisterProvider } from './contexts/registercontext.jsx';
 
 
 
@@ -32,7 +33,9 @@ function App() {
   
   <AuthProvider>
  <ProductProvider>
+  <RegisterProvider>
     <GearApp/>
+    </RegisterProvider>
     </ProductProvider>
     </AuthProvider>
   </>

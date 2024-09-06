@@ -1,24 +1,44 @@
-import axios from 'axios'
-import BASE_URL from '../constants/BaseApi'
+import axios from 'axios';
 
-// Create an Axios instance with a base URL
-// const api = axios.create({
-//   baseURL: BASE_URL, // Replace with your base URL
-//   // Optional: Set a timeout in milliseconds
-//   headers: { 'Content-Type': 'application/json' }, // Optional: Set default headers
-// });
+// API URL'ini buraya yazın
+const BASE_URL = 'https://localhost:7005/api';
 
-// Example usage of the Axios instance
-  export const  adressGetApi = () =>  axios.get(BASE_URL +'/Address/Get')
-  .then(response => {
-    console.log(BASE_URL); // Handle the response data
-    console.log(response.data); // Handle the response data
-     return response.data;  
-  } 
-)
-  .catch(error => {
-    console.error(error); // Handle the error
-  });
- 
-  
+// Axios instance oluşturun
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    // Buraya diğer başlıkları ekleyebilirsiniz
+  },
+});
 
+// Adresleri almak için fonksiyon
+export const getAllAddresses = async () => {
+  try {
+    const response = await api.get('/Address/GetAllAddresses');
+    return response.data;
+  } catch (error) {
+    throw error; // Hata durumunda hatayı fırlat
+  }
+};
+
+// Kullanıcı kaydı için fonksiyon
+export const registerUser = async (userData) => {
+  try {
+    const response = await api.post('/User/CreateUser', userData);
+    return response.data;
+  } catch (error) {
+    throw error; // Hata durumunda hatayı fırlat
+  }
+};
+export const loginUser = async (userLoginDTO) => {
+  try {
+    const response = await api.post('/Login/Authenticate', userLoginDTO);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// Diğer API çağrılarını buraya ekleyebilirsiniz

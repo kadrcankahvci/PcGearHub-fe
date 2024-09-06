@@ -1,7 +1,7 @@
 import React,{createContext,useState} from 'react'
 import {  useNavigate } from 'react-router-dom';
 import { getCookie } from '../Utils/cookieUtils';
-import { adressGetApi } from '../services/baseService';
+
 
 
 export const AuthContext = createContext();
@@ -16,15 +16,11 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(getCookie('isLoggedIn'))
     const [isAdmin,setIsAdmin]= useState(getCookie('isAdmin'));
    
-   const [Adress, SetAdress] = useState([]);
-   const getAddress = ()=> {
-    SetAdress(adressGetApi());
-   }
-    
+ 
   
     const values = {
         password,setPassword,error, setError,success, setSuccess,activeKey, setActiveKey,navigate,email, setEmail,isLoggedIn, setIsLoggedIn,isAdmin,setIsAdmin,
-      getAddress, Adress}
+      }
     return (
       <AuthContext.Provider value={values}>
         {children}

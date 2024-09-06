@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // axios'u import etmeyi unutma
 import '../styles/Register.css'; // Kendi CSS'ini import et
+ import { registerUser } from '../services/baseService';
+import { RegisterContext } from '../contexts/registercontext';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const navigate = useNavigate();       
+  const { username,setUsername,firstName,setFirstName,lastName, setLastName,email, setEmail,password, setPassword,phoneNumber, setPhoneNumber,error, setError
+    ,success, setSuccess,navigate} = useContext(RegisterContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -34,25 +29,18 @@ const Register = () => {
       setSuccess('');
       return;
     }
+    try {
+      const response = await registerUser(newUser);
+      console.log('Success:', response);
+      setSuccess('Registration successful! Redirecting to login...');
+      setError('');
+      setTimeout(() => navigate('/login'), 1000); // Kayıt başarılıysa login sayfasına yönlendir
+    } catch (err) {
+      console.error('Error registering user:', err);
+      setError('Registration failed. Please try again.');
+      setSuccess('');
+    }
 
-    
-      // API'ye POST isteği gönder
-      const response = await axios.post('https://localhost:7005/api/User/CreateUser', newUser);
-
-      // Başarılı olursa
-      if (response.status === 201) { // 201 Created durumu kontrol ediliyor
-        setSuccess('Account created successfully! You will be redirected to the login page.');
-        setError('');
-        
-        // 1 saniye sonra kullanıcıyı giriş ekranına yönlendirir
-        setTimeout(() => {
-          navigate('/login');
-        }, 1000);
-      } else {
-        // 201 dışındaki durumlar
-        setError('Unexpected response status. Please try again.');
-        setSuccess('');
-      }
     
   };
 
