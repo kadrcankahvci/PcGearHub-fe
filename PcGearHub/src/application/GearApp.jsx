@@ -8,7 +8,8 @@ import Home from '../Pages/Home.jsx'
 import Login from '../Pages/Auths/Login.jsx';
 import Register from '../Pages/Auths/Register.jsx';
 import Profile from '../Pages/Profile.jsx';
-
+import AdminDashboard from '../Pages/Admin/AdminDashboard.jsx';
+import ManageProducts from '../Pages/Admin/ManageProducts.jsx';
 import { Nav } from 'react-bootstrap';
 import About from '../pages/About.jsx';
 import Contact from '../pages/Contact.jsx';
@@ -23,8 +24,7 @@ import '../styles/GearApp.css';
 import CartPage from '../Pages/CardPage.jsx';
 
 const GearApp = () => {
-    const isAdmin = getCookie('isAdmin');
-  const isLoggedIn= getCookie('isLoggedIn');
+
   return (<div className='main'>
    <NavigationBar/>
     <Routes>
@@ -37,6 +37,8 @@ const GearApp = () => {
         <Route path='/categories' element={<Categories />} />
         <Route path="/profile" element={<ProtectedRoute element={Profile} />} />
         <Route path='/cart' element={<CartPage />} />
+        <Route path="/admin/dashboard" element={<ProtectedRoute element={AdminDashboard}/>} />
+        <Route path="/admin/manage-products" element={<ProtectedRoute element={ManageProducts}  />} />
         
      <Route path="/product/:id" element={<ProductDetail />} /> {/* Ürün detay sayfası için rota */}
      <Route path='/categories/:categoryId' element={<CategoryProducts />} /> {/* Kategori ürünleri sayfası */}

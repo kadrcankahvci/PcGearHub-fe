@@ -12,7 +12,7 @@ import { ProductContext } from '../contexts/productcontext';
 const NavigationBar = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { cartItems } = useContext(ProductContext);
-  const isAdmin = getCookie('isAdmin') === 'true'; // Admin olup olmadığını kontrol et
+
 
   // Toplam ürün sayısını hesapla
   const cartCount = cartItems.length;
@@ -42,17 +42,7 @@ const NavigationBar = () => {
             </Nav.Link>
             <Nav.Link as={NavLink} to="/contact" className="nav-link">
               Contact
-            </Nav.Link>
-            {isLoggedIn && isAdmin && (
-              <>
-                <Nav.Link as={NavLink} to="/admin/manage-products" className="nav-link">
-                  Manage Products
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/admin/manage-users" className="nav-link">
-                  Manage Users
-                </Nav.Link>
-              </>
-            )}
+            </Nav.Link>    
           </Nav>
 
           <Form className="d-flex ms-auto">

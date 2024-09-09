@@ -16,10 +16,10 @@ function App() {
     <AuthProvider>
       <ProductProvider>
         <RegisterProvider>
-         
+        
             {/* Giriş yapılmışsa ve adminse AdminPage göster, değilse GearApp göster */}
             {isLoggedIn && isAdmin ? <AdminApp /> : <GearApp />}
-         
+          
         </RegisterProvider>
       </ProductProvider>
     </AuthProvider>
