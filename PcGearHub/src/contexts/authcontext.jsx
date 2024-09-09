@@ -1,6 +1,6 @@
 import React,{createContext,useState} from 'react'
 import {  useNavigate } from 'react-router-dom';
-import { getCookie } from '../Utils/cookieUtils';
+import { getCookie } from '../utils/cookieUtils';
 
 
 

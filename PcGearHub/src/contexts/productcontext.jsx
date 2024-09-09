@@ -1,6 +1,6 @@
 import React,{createContext,useState} from 'react'
 
-import { getCookie } from '../Utils/cookieUtils';
+import { getCookie } from '../utils/cookieUtils';
 
 
 

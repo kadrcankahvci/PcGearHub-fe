@@ -17,6 +17,7 @@ export const getAllAddresses = async () => {
   try {
     const response = await api.get('/Address/GetAllAddresses');
     return response.data;
+   // response.status.
   } catch (error) {
     throw error; // Hata durumunda hatayı fırlat
   }

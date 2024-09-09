@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import NavigationBar from '../Components/Navbar';
+import NavigationBar from '../../components/Navbar';
 
 const AdminDashboard = () => {
   return (

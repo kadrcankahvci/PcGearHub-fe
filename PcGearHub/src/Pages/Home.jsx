@@ -1,5 +1,5 @@
-import HeroBanner from "../Components/HeroBanner"
-import ProductList from "../Components/ProductList"
+import HeroBanner from "../components/HeroBanner"
+import ProductList from "../components/ProductList"
 
 
 

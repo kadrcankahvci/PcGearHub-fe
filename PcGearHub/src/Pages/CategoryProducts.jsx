@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import ProductCard from '../Components/ProductCard';
+import ProductCard from '../components/ProductCard';
 import products from '../data/products'; // Ürün verilerini import et
 
 const CategoryProducts = () => {

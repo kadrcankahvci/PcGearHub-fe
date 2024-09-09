@@ -1,45 +1,29 @@
-import { useState } from 'react'
-import NavigationBar from './Components/Navbar.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getCookie } from './Utils/cookieUtils';
-import './App.css'
-import Home from './Pages/Home.jsx';
-import Login from './Pages/Login.jsx';
-import Register from './Pages/Register.jsx';
-import Profile from './Pages/Profile.jsx';
-import AdminDashboard from './Pages/AdminDashboard';
-import ManageProducts from './Pages/ManageProducts.jsx';
-import { Nav } from 'react-bootstrap';
-import About from './pages/About.jsx';
-import Contact from './pages/Contact.jsx';
-import Categories from './pages/Categories.jsx';
-// import Footer from './Components/Footer.jsx/index.js';
+import React from 'react';
+import { getCookie } from './utils/cookieUtils.jsx';
+import './App.css';
 import { AuthProvider } from './contexts/authcontext.jsx';
-import GearApp from './GearApp.jsx';
-import { ProductContext, ProductProvider } from './contexts/productcontext.jsx';
+import GearApp from './application/GearApp.jsx';
+import AdminApp from './application/AdminApp.jsx';
+import { ProductProvider } from './contexts/productcontext.jsx';
 import { RegisterProvider } from './contexts/registercontext.jsx';
-
-
-
-
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
-  const isAdmin = getCookie('isAdmin');
-  const isLoggedIn= getCookie('isLoggedIn');
+  const isAdmin = getCookie('isAdmin') === 'true'; // Cookie'nin string olabileceğini varsayarak 'true' ile karşılaştırma yapıyoruz.
+  const isLoggedIn = getCookie('isLoggedIn') === 'true'; // Giriş kontrolü yapıyoruz.
 
-
- 
-  return (<>
-  
-  <AuthProvider>
- <ProductProvider>
-  <RegisterProvider>
-    <GearApp/>
-    </RegisterProvider>
-    </ProductProvider>
+  return (
+    <AuthProvider>
+      <ProductProvider>
+        <RegisterProvider>
+         
+            {/* Giriş yapılmışsa ve adminse AdminPage göster, değilse GearApp göster */}
+            {isLoggedIn && isAdmin ? <AdminApp /> : <GearApp />}
+         
+        </RegisterProvider>
+      </ProductProvider>
     </AuthProvider>
-  </>
-  )
+  );
 }
 
-export default App
+export default App;

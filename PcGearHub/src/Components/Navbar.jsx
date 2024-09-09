@@ -1,31 +1,25 @@
-// src/components/NavigationBar.jsx
-
-import React, { useContext, useState } from 'react';
-import { Navbar, Nav, Container, Form, FormControl, Button,Badge } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Navbar, Nav, Container, Form, FormControl, Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom';
-import { getCookie, eraseCookie, setCookie } from '../Utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
-import myIcon from '../assets/hacker.png';
+import { getCookie, eraseCookie } from '../utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
+import myIcon from '../assets/images/hacker.png';
 import '../styles/Navbar.css';
 import { AuthContext } from '../contexts/authcontext';
 import { ProductContext } from '../contexts/productcontext';
 
-
 const NavigationBar = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { cartItems } = useContext(ProductContext);
+  const isAdmin = getCookie('isAdmin') === 'true'; // Admin olup olmadığını kontrol et
 
-  const { isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
-  const {cartItems, setCartItems} = useContext(ProductContext);
-  
-  
   // Toplam ürün sayısını hesapla
   const cartCount = cartItems.length;
-
 
   const handleLogout = () => {
     setIsLoggedIn(getCookie('isLoggedIn'));
     eraseCookie('isLoggedIn');
-    
     window.location.href = '/'; // Çıkış yaptıktan sonra ana sayfaya yönlendir
   };
 
@@ -40,15 +34,25 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/categories"  className="nav-link">
+            <Nav.Link as={NavLink} to="/categories" className="nav-link">
               Categories
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/about"  className="nav-link">
+            <Nav.Link as={NavLink} to="/about" className="nav-link">
               About
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/contact"  className="nav-link">
+            <Nav.Link as={NavLink} to="/contact" className="nav-link">
               Contact
             </Nav.Link>
+            {isLoggedIn && isAdmin && (
+              <>
+                <Nav.Link as={NavLink} to="/admin/manage-products" className="nav-link">
+                  Manage Products
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/admin/manage-users" className="nav-link">
+                  Manage Users
+                </Nav.Link>
+              </>
+            )}
           </Nav>
 
           <Form className="d-flex ms-auto">
@@ -59,7 +63,7 @@ const NavigationBar = () => {
           </Form>
 
           <Nav className="ms-2">
-            <Nav.Link as={NavLink} to="/"  className="nav-link home-link">
+            <Nav.Link as={NavLink} to="/" className="nav-link home-link">
               HOME
             </Nav.Link>
           </Nav>
@@ -81,9 +85,9 @@ const NavigationBar = () => {
                 <FontAwesomeIcon icon={faUser} size="lg" className="me-2" />
               </Nav.Link>
             )}
-              <Nav.Link as={Link} to="/cart" className="position-relative">
+            <Nav.Link as={Link} to="/cart" className="position-relative">
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-              {cartCount > 0 && ( // Eğer sepette ürün varsa gösterecek
+              {cartCount > 0 && (
                 <Badge pill bg="danger" className="cart-badge">
                   {cartCount}
                 </Badge>

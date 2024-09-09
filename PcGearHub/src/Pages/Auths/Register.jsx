@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // axios'u import etmeyi unutma
-import '../styles/Register.css'; // Kendi CSS'ini import et
- import { registerUser } from '../services/baseService';
-import { RegisterContext } from '../contexts/registercontext';
+import '../../styles/Register.css'; // Kendi CSS'ini import et
+import { registerUser } from '../../services/baseService';
+import { RegisterContext } from '../../contexts/registercontext';
 
 const Register = () => {
   const { username,setUsername,firstName,setFirstName,lastName, setLastName,email, setEmail,password, setPassword,phoneNumber, setPhoneNumber,error, setError

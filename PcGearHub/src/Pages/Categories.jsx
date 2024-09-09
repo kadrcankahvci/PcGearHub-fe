@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Category.css'; // CSS file to style the categories
 import Product from '../models/Product';
 // Import images
-import keyboardImg from '../assets/keyboard.jpg';
-import mouseImg from '../assets/mouse.jpg';
-import monitorImg from '../assets/monitor.jpg';
-import headphoneImg from '../assets/headphone.jpg';
-import micImage from '../assets/mic.jpg';
+
 import categories from '../data/categories';
 
 // Define the categories with images and descriptions

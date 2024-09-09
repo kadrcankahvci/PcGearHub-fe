@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
-import productsData from '../data/products'; // Ürün verilerini dışarıdan alıyoruz
+import productsData from '../../data/products'; // Ürün verilerini dışarıdan alıyoruz
 
 const ManageProducts = () => {
   const [products, setProducts] = useState(productsData); // Ürünleri tutan state

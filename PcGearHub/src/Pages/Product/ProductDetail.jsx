@@ -2,9 +2,9 @@
 
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import products from '../data/products'; // Ürün verilerini import edin
-import { AuthContext } from '../contexts/authcontext'; // AuthContext'i import edin
-import { ProductContext } from '../contexts/productcontext';
+import products from '../../data/products'; // Ürün verilerini import edin
+import { AuthContext } from '../../contexts/authcontext'; // AuthContext'i import edin
+import { ProductContext } from '../../contexts/productcontext';
 
 const ProductDetail = () => {
   const { id } = useParams(); // URL parametresinden ürün ID'sini alın

@@ -1,49 +1,51 @@
 import React, { useContext } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import '../styles/bla.css';
-import { AuthContext } from '../contexts/authcontext';
-import { getCookie, setCookie } from '../Utils/cookieUtils';
-import { loginUser } from '../services/baseService';
+import '../../styles/bla.css';
+import { AuthContext } from '../../contexts/authcontext';
+import { setCookie } from '../../utils/cookieUtils';
+import { loginUser } from '../../services/baseService';
 
 const Login = () => {
-  const { password, setPassword, error, setError, success, setSuccess, email, setEmail, setIsLoggedIn, setIsAdmin } = useContext(AuthContext);
+  const { password, setPassword, error, setError, success, setSuccess, email, setEmail, setIsLoggedIn, setIsAdmin} = useContext(AuthContext);
   const navigate = useNavigate(); // useNavigate kullanarak yönlendirme işlemleri yapılır
+  const {data} = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       // API'ye giriş bilgilerini gönder
-      const { message, user } = await loginUser({ email, password });
-      
+      const response = await loginUser({ email, password });
+      const { message, user } = response;
+  
       // Başarılı giriş durumunda
       if (user) {
         setSuccess(message);
         setError('');
-
+  
         // Çerezleri ayarla
         setCookie('isLoggedIn', true, 1);
         setCookie('user', JSON.stringify(user), 1); // Kullanıcı bilgilerini çerezde saklayabilirsiniz
-
-        // Kullanıcının rolüne göre çerez ayarla
-        if (user.roleId === 4) { // Admin rolü
+  
+        // Kullanıcının rolüne göre çerez ayarla ve yönlendirme yap
+        if (user.userRoleId === 4) { // Admin rolü
           setCookie('isAdmin', true, 1);
           setIsAdmin(true);
+          navigate('/admin/dashboard');
         } else {
           setCookie('isAdmin', false, 1);
           setIsAdmin(false);
+          navigate('/');
         }
-
-        // Oturum açılmış olarak işaretle
+  
+        // Oturum açılmış olarak işaretle ve userId'yi ayarla
         setIsLoggedIn(true);
-
+       
+        
         // Formu temizle
         setEmail('');
         setPassword('');
-
-        // Anasayfaya yönlendir
-        navigate('/');
       }
     } catch (error) {
       console.error('Login failed:', error.response ? error.response.data : error.message);
