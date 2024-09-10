@@ -8,6 +8,7 @@ import AdminDashboard from '../Pages/Admin/AdminDashboard.jsx';
 import ManageProducts from '../Pages/Admin/ManageProducts.jsx';
 import Categories from '../pages/Categories.jsx';
 import CategoryProducts from '../Pages/CategoryProducts.jsx';
+import ManageUsers from '../Pages/Admin/ManageUsers.jsx';
 
 import Footer from '../components/Footer.jsx';
 import ProtectedRoute from '../components/ProtectedRoute.jsx';
@@ -24,6 +25,7 @@ const AdminApp = () => {
       <Route path="/admin/manage-products" element={<ProtectedRoute element={ManageProducts} />} />
         <Route path='/categories' element={<Categories />} />
         <Route path='/categories/:categoryId' element={<CategoryProducts />} />
+        <Route path='/admin/manage-users' element={<ManageUsers />} />
 
        
      

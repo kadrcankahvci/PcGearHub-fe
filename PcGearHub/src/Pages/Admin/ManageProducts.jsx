@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
-import { getAllProducts, updateProduct, deleteProduct, createProduct } from '../../services/baseService'; // API servis dosyanız
+import { getAllProducts, updateProduct, deleteProduct, createProduct } from '../../services/ProductService'; // API servis dosyanız
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -154,7 +154,6 @@ const ManageProducts = () => {
                   }
                 />
               </Form.Group>
-
               <Form.Group controlId="formProductCategoryId">
                 <Form.Label>Category ID</Form.Label>
                 <Form.Control
