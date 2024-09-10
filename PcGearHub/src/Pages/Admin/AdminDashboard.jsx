@@ -38,11 +38,11 @@ const AdminDashboard = () => {
           <Col md={4} className="mb-3">
             <Card>
               <Card.Body>
-                <Card.Title>Sales Statistics</Card.Title>
+                <Card.Title>Manage Categories</Card.Title>
                 <Card.Text>
-                  View sales statistics and generate reports.
+                Add, update, or delete products in your inventory.
                 </Card.Text>
-                <Button variant="primary" href="/admin/sales-statistics">
+                <Button variant="primary" href="/admin/manage-categories">
                   View Statistics
                 </Button>
               </Card.Body>

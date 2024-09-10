@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +6,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { eraseCookie } from '../../utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
 import myIcon from '../../assets/images/hacker.png';
 import '../../styles/Navbar.css';
+import { AuthContext } from '../../contexts/authcontext';
 
 const AdminNavigationBar = () => {
+
     
   const handleLogout = () => {
     eraseCookie('isLoggedIn');
@@ -16,6 +18,7 @@ const AdminNavigationBar = () => {
   };
 
   return (
+    
     <Navbar className="custom-navbar" expand="lg">
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
@@ -38,6 +41,9 @@ const AdminNavigationBar = () => {
             </Nav.Link>
             <Nav.Link as={NavLink} to="/admin/manage-users" className="nav-link">
               Manage Users
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/admin/manage-categories" className="nav-link">
+              Manage Categories
             </Nav.Link>
            
           

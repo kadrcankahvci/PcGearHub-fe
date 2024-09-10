@@ -1,44 +1,60 @@
-// src/pages/ManageProducts.jsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
-import productsData from '../../data/products'; // Ürün verilerini dışarıdan alıyoruz
+import { getAllProducts, updateProduct, deleteProduct, createProduct } from '../../services/baseService'; // API servis dosyanız
 
 const ManageProducts = () => {
-  const [products, setProducts] = useState(productsData); // Ürünleri tutan state
-  const [showModal, setShowModal] = useState(false); // Modal gösterme kontrolü
-  const [selectedProduct, setSelectedProduct] = useState(null); // Düzenlenecek ürün
+  const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Ürün ekleme veya güncelleme modal'ını açma
-  const handleShowModal = (product = null) => { 
-    setSelectedProduct(product);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const data = await getAllProducts();
+      console.log('Fetched data:', data);
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const handleShowModal = (product = null) => {
+    setSelectedProduct(product || { name: '', description: '', price: 0, stockQuantity: 0, categoryId: 1 });
     setShowModal(true);
   };
 
-  // Ürün ekleme veya güncelleme işlemi
-  const handleSaveProduct = () => {
-    if (selectedProduct.productId) {
-      // Var olan ürünü güncelle
-      const updatedProducts = products.map((p) =>
-        p.productId === selectedProduct.productId ? selectedProduct : p
-      );
-      setProducts(updatedProducts);
-    } else {
-      // Yeni ürün ekle
-      const newProduct = {
-        ...selectedProduct,
-        productId: products.length + 1, // Yeni ürün ID'si otomatik atanıyor
-      };
-      setProducts([...products, newProduct]);
+  const handleSaveProduct = async () => {
+    try {
+      if (selectedProduct.productId) {
+        // Var olan ürünü güncelle
+        await updateProduct(selectedProduct);
+        const updatedProducts = products.map((p) =>
+          p.productId === selectedProduct.productId ? selectedProduct : p
+        );
+        setProducts(updatedProducts);
+      } else {
+        // Yeni ürün ekle
+        const newProduct = await createProduct(selectedProduct);
+        setProducts([...products, newProduct]);
+      }
+      setShowModal(false);
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error('Error saving product:', error);
     }
-    setShowModal(false);
-    setSelectedProduct(null);
   };
 
-  // Ürün silme işlemi
-  const handleDeleteProduct = (productId) => {
-    const filteredProducts = products.filter((p) => p.productId !== productId);
-    setProducts(filteredProducts);
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await deleteProduct(productId);
+      const filteredProducts = products.filter((p) => p.productId !== productId);
+      setProducts(filteredProducts);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
 
   return (
@@ -55,7 +71,8 @@ const ManageProducts = () => {
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
-              <th>Image</th> {/* Yeni sütun */}
+              <th>Stock Quantity</th>
+              <th>Category ID</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -63,16 +80,11 @@ const ManageProducts = () => {
             {products.map((product) => (
               <tr key={product.productId}>
                 <td>{product.productId}</td>
-                <td>{product.productName}</td>
+                <td>{product.name}</td>
                 <td>{product.description}</td>
                 <td>${product.price}</td>
-                <td>
-                  {product.imageUrl ? (
-                    <img src={product.imageUrl} alt={product.productName} style={{ width: '50px', height: '50px' }} />
-                  ) : (
-                    'No image'
-                  )}
-                </td>
+                <td>{product.stockQuantity}</td>
+                <td>{product.categoryId}</td>
                 <td>
                   <Button
                     variant="warning"
@@ -93,10 +105,9 @@ const ManageProducts = () => {
           </tbody>
         </Table>
 
-        {/* Ürün Ekle/Düzenle Modalı */}
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedProduct ? 'Edit Product' : 'Add New Product'}</Modal.Title>
+            <Modal.Title>{selectedProduct?.productId ? 'Edit Product' : 'Add New Product'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -104,9 +115,9 @@ const ManageProducts = () => {
                 <Form.Label>Product Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={selectedProduct?.productName || ''}
+                  value={selectedProduct?.name || ''}
                   onChange={(e) =>
-                    setSelectedProduct({ ...selectedProduct, productName: e.target.value })
+                    setSelectedProduct({ ...selectedProduct, name: e.target.value })
                   }
                 />
               </Form.Group>
@@ -133,13 +144,24 @@ const ManageProducts = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="formProductImage">
-                <Form.Label>Image URL</Form.Label>
+              <Form.Group controlId="formProductStockQuantity">
+                <Form.Label>Stock Quantity</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={selectedProduct?.imageUrl || ''}
+                  type="number"
+                  value={selectedProduct?.stockQuantity || ''}
                   onChange={(e) =>
-                    setSelectedProduct({ ...selectedProduct, imageUrl: e.target.value })
+                    setSelectedProduct({ ...selectedProduct, stockQuantity: parseInt(e.target.value) })
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formProductCategoryId">
+                <Form.Label>Category ID</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={selectedProduct?.categoryId || ''}
+                  onChange={(e) =>
+                    setSelectedProduct({ ...selectedProduct, categoryId: parseInt(e.target.value) })
                   }
                 />
               </Form.Group>
