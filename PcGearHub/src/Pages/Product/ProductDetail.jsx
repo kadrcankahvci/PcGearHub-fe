@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from '../../contexts/authcontext'; // Import AuthContext if needed
 import { ProductContext } from '../../contexts/productcontext';
-import { getProductById } from '../../services/ProductService';// Import the API service to fetch product details
+import { getProductById } from '../../services/ProductService'; // Import the API service to fetch product details
 
 const ProductDetail = () => {
   const { id } = useParams(); // Get the product ID from the URL parameters
@@ -54,7 +53,12 @@ const ProductDetail = () => {
       <h1>{product.name}</h1> {/* Use 'name' from API data */}
       <div className="row">
         <div className="col-md-6">
-          <img src={product.image} alt={product.name} className="img-fluid" /> {/* Adjust if 'image' is provided */}
+          <img 
+            src={`/images/${product.image}`} 
+            alt={product.name} 
+            className="img-fluid" 
+            style={{ maxWidth: '100%', height: 'auto' }} 
+          /> {/* Adjust if 'image' is provided */}
         </div>
         <div className="col-md-6">
           <p><strong>Price:</strong> ${product.price}</p>

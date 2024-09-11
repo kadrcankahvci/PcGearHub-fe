@@ -36,7 +36,7 @@ const ManageProducts = () => {
 
   const handleShowModal = (product = null) => {
     setSelectedProduct(
-      product || { name: '', description: '', price: 0, stockQuantity: 0, categoryId: categories[0]?.categoryId || 1 }
+      product || { name: '', description: '', price: 0, stockQuantity: 0, categoryId: categories[0]?.categoryId || 1, image: '' }
     );
     setShowModal(true);
   };
@@ -93,6 +93,7 @@ const ManageProducts = () => {
               <th>Price</th>
               <th>Stock Quantity</th>
               <th>Category Name</th> {/* Display category name */}
+              <th>Image</th> {/* Display image */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -105,6 +106,13 @@ const ManageProducts = () => {
                 <td>${product.price}</td>
                 <td>{product.stockQuantity}</td>
                 <td>{getCategoryNameById(product.categoryId)}</td> {/* Show category name */}
+                <td>
+                  {product.image ? (
+                    <img src={`/images/${product.image}`} alt={product.name} style={{ width: '100px', height: 'auto' }} />
+                  ) : (
+                    'No Image'
+                  )}
+                </td> {/* Show image */}
                 <td>
                   <Button
                     variant="warning"
@@ -190,6 +198,18 @@ const ManageProducts = () => {
                     </option>
                   ))}
                 </Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId="formProductImage">
+                <Form.Label>Image URL</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={selectedProduct?.image || ''}
+                  onChange={(e) =>
+                    setSelectedProduct({ ...selectedProduct, image: e.target.value })
+                  }
+                  placeholder="Enter image file name (e.g., headphone.jpg)"
+                />
               </Form.Group>
             </Form>
           </Modal.Body>
