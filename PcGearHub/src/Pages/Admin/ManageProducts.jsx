@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
-import { getAllProducts, updateProduct, deleteProduct, createProduct } from '../../services/ProductService'; // API servis dosyanız
+import { getAllProducts, updateProduct, deleteProduct, createProduct } from '../../services/ProductService';
+import { getAllCategories } from '../../services/CategoryService'; // API service to fetch categories
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -21,22 +24,34 @@ const ManageProducts = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const data = await getAllCategories();
+      console.log('Fetched categories:', data);
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
   const handleShowModal = (product = null) => {
-    setSelectedProduct(product || { name: '', description: '', price: 0, stockQuantity: 0, categoryId: 1 });
+    setSelectedProduct(
+      product || { name: '', description: '', price: 0, stockQuantity: 0, categoryId: categories[0]?.categoryId || 1 }
+    );
     setShowModal(true);
   };
 
   const handleSaveProduct = async () => {
     try {
       if (selectedProduct.productId) {
-        // Var olan ürünü güncelle
+        // Update existing product
         await updateProduct(selectedProduct);
         const updatedProducts = products.map((p) =>
           p.productId === selectedProduct.productId ? selectedProduct : p
         );
         setProducts(updatedProducts);
       } else {
-        // Yeni ürün ekle
+        // Add new product
         const newProduct = await createProduct(selectedProduct);
         setProducts([...products, newProduct]);
       }
@@ -57,6 +72,11 @@ const ManageProducts = () => {
     }
   };
 
+  const getCategoryNameById = (categoryId) => {
+    const category = categories.find((c) => c.categoryId === categoryId);
+    return category ? category.name : '';
+  };
+
   return (
     <>
       <Container className="mt-4">
@@ -72,7 +92,7 @@ const ManageProducts = () => {
               <th>Description</th>
               <th>Price</th>
               <th>Stock Quantity</th>
-              <th>Category ID</th>
+              <th>Category Name</th> {/* Display category name */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -84,7 +104,7 @@ const ManageProducts = () => {
                 <td>{product.description}</td>
                 <td>${product.price}</td>
                 <td>{product.stockQuantity}</td>
-                <td>{product.categoryId}</td>
+                <td>{getCategoryNameById(product.categoryId)}</td> {/* Show category name */}
                 <td>
                   <Button
                     variant="warning"
@@ -154,15 +174,22 @@ const ManageProducts = () => {
                   }
                 />
               </Form.Group>
+
               <Form.Group controlId="formProductCategoryId">
-                <Form.Label>Category ID</Form.Label>
+                <Form.Label>Category</Form.Label>
                 <Form.Control
-                  type="number"
+                  as="select"
                   value={selectedProduct?.categoryId || ''}
                   onChange={(e) =>
                     setSelectedProduct({ ...selectedProduct, categoryId: parseInt(e.target.value) })
                   }
-                />
+                >
+                  {categories.map((category) => (
+                    <option key={category.categoryId} value={category.categoryId}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Control>
               </Form.Group>
             </Form>
           </Modal.Body>
