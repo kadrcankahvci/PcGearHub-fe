@@ -16,7 +16,7 @@ export const getAllProducts = async () => {
       throw error;
     }
   };
-  
+ 
   
   // Ürün silme fonksiyonu
   export const deleteProduct = async (productId) => {
@@ -42,6 +42,15 @@ export const getAllProducts = async () => {
       return response.data;
     } catch (error) {
       console.error('Error updating product:', error.response ? error.response.data : error.message);
+      throw error;
+    }
+  };
+  export const getProductById = async (productId) => {
+    try {
+      const response = await api.get(`/Product/GetProductById/${productId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching product by ID:', error.response ? error.response.data : error.message);
       throw error;
     }
   };
