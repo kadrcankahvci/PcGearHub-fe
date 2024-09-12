@@ -22,6 +22,7 @@ import CategoryProducts from '../Pages/CategoryProducts.jsx';
 import ProtectedRoute from '../components/ProtectedRoute.jsx';
 import '../styles/GearApp.css';
 import CartPage from '../Pages/CardPage.jsx';
+import SearchResults from '../Pages/Product/SearchProducts.jsx';
 
 const GearApp = () => {
 
@@ -42,7 +43,7 @@ const GearApp = () => {
         
      <Route path="/product/:id" element={<ProductDetail />} /> {/* Ürün detay sayfası için rota */}
      <Route path='/categories/:categoryId' element={<CategoryProducts />} /> {/* Kategori ürünleri sayfası */}
-       
+     <Route path="/search-results" element={<SearchResults />} /> {/* Yeni rota */}
   
         
      

@@ -15,8 +15,7 @@ export const getAllProducts = async () => {
       console.error('Error fetching products:', error.response ? error.response.data : error.message);
       throw error;
     }
-  };
- 
+  }; 
   
   // Ürün silme fonksiyonu
   export const deleteProduct = async (productId) => {
@@ -51,6 +50,17 @@ export const getAllProducts = async () => {
       return response.data;
     } catch (error) {
       console.error('Error fetching product by ID:', error.response ? error.response.data : error.message);
+      throw error;
+    }
+  };
+  export const searchProducts = async (query) => {
+    try {
+      const response = await api.get(`/Product/SearchProducts`, {
+        params: { query }  // Sorguyu query parametresi olarak gönder
+      });
+      return response.data; // Yanıt verisini döndür
+    } catch (error) {
+      console.error('Error searching products:', error.response ? error.response.data : error.message);
       throw error;
     }
   };

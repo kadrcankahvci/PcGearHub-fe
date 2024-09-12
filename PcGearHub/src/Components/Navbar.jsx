@@ -1,18 +1,21 @@
-import React, { useContext } from 'react';
+// src/components/NavigationBar.jsx
+import React, { useState, useContext } from 'react';
 import { Navbar, Nav, Container, Form, FormControl, Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { getCookie, eraseCookie } from '../utils/cookieUtils'; // Çerez yönetim fonksiyonlarını import et
 import myIcon from '../assets/images/hacker.png';
 import '../styles/Navbar.css';
 import { AuthContext } from '../contexts/authcontext';
 import { ProductContext } from '../contexts/productcontext';
+import { searchProducts } from '../services/ProductService'; // Arama fonksiyonunu import et
 
 const NavigationBar = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { cartItems } = useContext(ProductContext);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   // Toplam ürün sayısını hesapla
   const cartCount = cartItems.length;
@@ -21,6 +24,20 @@ const NavigationBar = () => {
     setIsLoggedIn(getCookie('isLoggedIn'));
     eraseCookie('isLoggedIn');
     window.location.href = '/'; // Çıkış yaptıktan sonra ana sayfaya yönlendir
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery) return;
+
+    try {
+      // Arama fonksiyonunu çağır
+      const products = await searchProducts(searchQuery);
+      console.log('Bulunan ürünler:', products);
+      navigate('/search-results', { state: { products } }); // Arama sonuçları sayfasına yönlendir
+    } catch (error) {
+      console.error('Arama sırasında bir hata oluştu:', error.message); // Hata mesajını göster
+    }
   };
 
   return (
@@ -45,9 +62,16 @@ const NavigationBar = () => {
             </Nav.Link>    
           </Nav>
 
-          <Form className="d-flex ms-auto">
-            <FormControl type="search" placeholder="Search" className="me-2 form-control" aria-label="Search" />
-            <Button variant="outline-light" className="search-button">
+          <Form className="d-flex ms-auto" onSubmit={handleSearch}>
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2 form-control"
+              aria-label="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <Button variant="outline-light" className="search-button" type="submit">
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </Form>
