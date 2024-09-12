@@ -1,47 +1,69 @@
 /* src/styles/HeroBanner.css */
 
 .hero-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
-    background-color: #f8f9fa;
-    margin-top: 1rem; /* Navbar'dan biraz boşluk bırakmak için */
-  }
-  
-  .hero-text {
-    flex: 1;
-    padding: 1rem;
-  }
-  
-  .hero-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-text p {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .hero-text .btn {
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background-color: #e9ecef; /* Açık gri arka plan rengi */
+  margin-top: 1rem; /* Navbar'dan biraz boşluk bırakmak için */
+  border-radius: 8px; /* Kutu köşelerini yuvarlamak için */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+}
+
+.hero-text {
+  flex: 1;
+  padding: 1rem;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #343a40; /* Koyu gri metin rengi */
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #495057; /* Orta gri metin rengi */
+}
+
+.hero-text .btn {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #6c757d; /* Gri tonlarında buton rengi */
+  color: #ffffff; /* Beyaz metin rengi */
+  transition: background-color 0.3s ease;
+}
+
+.hero-text .btn:hover {
+  background-color: #5a6268; /* Daha koyu gri hover rengi */
+}
+
+.hero-image {
+  flex: 1;
+  padding: 1rem;
+  text-align: right;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Resmin köşelerini yuvarlamak için */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    flex-direction: column;
+    text-align: center;
+    height: auto; /* Küçük ekranlarda yüksekliği otomatik ayarlayın */
   }
   
   .hero-image {
-    flex: 1;
-    padding: 1rem;
-    text-align: right;
+    text-align: center;
+    margin-top: 1rem;
   }
-  
-  .hero-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px; /* Resmin köşelerini yuvarlamak için */
-  }
-  @media (max-width: 768px) {
-    .hero-banner {
-      height: 300px; /* Küçük ekranlar için hero banner yüksekliğini ayarlayın */
-    }
-  }
+}

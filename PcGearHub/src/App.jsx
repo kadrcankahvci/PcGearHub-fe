@@ -1,52 +1,28 @@
-import { useState } from 'react'
-import NavigationBar from './Components/Navbar.jsx';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getCookie } from './Utils/cookieUtils';
-import './App.css'
-import Home from './Pages/Home.jsx';
-import Login from './Pages/Login.jsx';
-import Register from './Pages/Register.jsx';
-import Profile from './Pages/Profile.jsx';
-import AdminDashboard from './Pages/AdminDashboard';
-import ManageProducts from './Pages/ManageProducts.jsx';
-import { Nav } from 'react-bootstrap';
-import About from './pages/About.jsx';
-import Contact from './pages/Contact.jsx';
-import Categories from './pages/Categories.jsx';
-import Footer from './Components/Footer.jsx';
-
-
-
-
+import React, { useContext } from 'react';
+import { getCookie } from './utils/cookieUtils.jsx';
+import './App.css';
+import { AuthContext, AuthProvider } from './contexts/authcontext.jsx';
+import GearApp from './application/GearApp.jsx';
+import AdminApp from './application/AdminApp.jsx';
+import { ProductProvider } from './contexts/productcontext.jsx';
+import { RegisterProvider } from './contexts/registercontext.jsx';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
-  const isAdmin = getCookie('isAdmin'); // Admin kontrolü için çerezden bilgi al
+ const {isLoggedIn,isAdmin} = useContext(AuthContext)
 
- 
-  return (<>
-  <NavigationBar/>
-    <Routes>
-    <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/categories' element={<Categories />} />
-       
+  return (
+   
+      <ProductProvider>
+        <RegisterProvider>
         
-      {isAdmin && (
-        <>
-        <Route path="/admin/dashboard" element={isAdmin ? <AdminDashboard /> : <Login />} />
-          <Route path="/admin/manage-products" element={isAdmin ? <ManageProducts /> : <Login />} />
-      
-        </>
-      )}
-       
-    </Routes>
-    <Footer/>
-  </>
-  )
+            {/* Giriş yapılmışsa ve adminse AdminPage göster, değilse GearApp göster */}
+            {  isLoggedIn ? (isAdmin ? <AdminApp /> : <GearApp />) : <GearApp/>}
+          
+        </RegisterProvider>
+      </ProductProvider>
+    
+  );
 }
 
-export default App
+export default App;

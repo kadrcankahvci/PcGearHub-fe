@@ -1,58 +1,52 @@
-import React from 'react';
-import { Card, Button, Col, Row, Container } from 'react-bootstrap';
-import '../styles/ProductList.css'; // İsteğe bağlı CSS dosyanızı buraya import edin
-
-const products = [
-  {
-    id: 1,
-    name: 'Gaming Mouse',
-    description: 'High precision gaming mouse with customizable DPI.',
-    price: 29.99,
-    image: '/images/mouse.jpg'
-  },
-  {
-    id: 2,
-    name: 'Mechanical Keyboard',
-    description: 'Durable mechanical keyboard with RGB lighting.',
-    price: 89.99,
-    image: '/images/keyboard.jpg'
-  },
-  {
-    id: 3,
-    name: '4K Monitor',
-    description: 'Ultra HD monitor with excellent color accuracy.',
-    price: 299.99,
-    image: '/images/monitor.jpg'
-  },
-  {
-    id: 4,
-    name: 'Wireless Headset',
-    description: 'Comfortable wireless headset with noise cancellation.',
-    price: 149.99,
-    image: '/images/headset.jpg'
-  }
-];
+import React, { useState, useEffect } from 'react';
+import ProductCard from './ProductCard'; // Import the ProductCard component
+import { getAllProducts } from '../services/ProductService'; // Import the service function to fetch products
 
 const ProductList = () => {
+  const [products, setProducts] = useState([]); // State to store fetched products
+  const [loading, setLoading] = useState(true); // State to manage loading state
+  const [error, setError] = useState(null); // State to manage error state
+
+  // Function to fetch products from the API
+  const fetchProducts = async () => {
+    try {
+      const data = await getAllProducts(); // Fetch products using the service function
+      setProducts(data); // Set fetched products to state
+      setLoading(false); // Set loading to false after fetching data
+    } catch (error) {
+      console.error('Error fetching products:', error); // Log errors to console
+      setError('Failed to fetch products.'); // Set error message
+      setLoading(false); // Set loading to false if an error occurs
+    }
+  };
+
+  // useEffect to fetch products on component mount
+  useEffect(() => {
+    fetchProducts(); // Call fetch function on mount
+  }, []);
+
+  // Display loading spinner while fetching data
+  if (loading) {
+    return <div className="container mt-4"><p>Loading products...</p></div>;
+  }
+
+  // Display error message if fetching fails
+  if (error) {
+    return <div className="container mt-4"><p>{error}</p></div>;
+  }
+
+  // Render the product list
   return (
-    <Container>
-      <h2 className="mt-4">Our Products</h2>
-      <Row>
+    <div className="container mt-4">
+      <h1>Available Products</h1>
+      <div className="row">
         {products.map(product => (
-          <Col md={3} key={product.id} className="mb-4">
-            <Card>
-              <Card.Img variant="top" src={product.image} alt={product.name} />
-              <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
-                <Card.Text>${product.price.toFixed(2)}</Card.Text>
-                <Button variant="primary">View Details</Button>
-              </Card.Body>
-            </Card>
-          </Col>
+          <div key={product.productId} className="col-md-4">
+            <ProductCard product={product} /> {/* Pass each product to ProductCard */}
+          </div>
         ))}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

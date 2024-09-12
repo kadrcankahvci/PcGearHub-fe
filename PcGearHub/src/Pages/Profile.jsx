@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Profile.css'; // Özel stil dosyanızı import edin
+import { AuthContext } from '../contexts/authcontext';
+
+
 
 const Profile = () => {
-  return (
+  
+ 
+  
+  return ( 
     <Container className="profile-container mt-4">
       <Row>
         {/* Kullanıcı Bilgileri */}
@@ -44,20 +50,24 @@ const Profile = () => {
           </Card>
         </Col>
       </Row>
-
-      <Row>
+      
+      <Row> 
         {/* Adres Bilgileri */}
+
         <Col md={6}>
           <Card className="mb-4">
             <Card.Header>Shipping Addresses</Card.Header>
             <Card.Body>
               <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <strong>Home</strong><br />
-                  123 Main St, Apt 4B<br />
+                
+                
+                <ListGroup.Item> 
+                  <strong></strong><br />
+                 <br />
                   New York, NY 10001<br />
                   <Button variant="link" as={Link} to="/edit-address/1">Edit</Button>
                 </ListGroup.Item>
+
                 <ListGroup.Item>
                   <strong>Office</strong><br />
                   456 Corporate Blvd<br />

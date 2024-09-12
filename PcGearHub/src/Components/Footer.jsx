@@ -8,7 +8,7 @@ import '../styles/Footer.css'; // CSS dosyanızı buraya import edin
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer tx-sm">
       <Container>
         <Row>
           <Col md={4} className="footer-section">

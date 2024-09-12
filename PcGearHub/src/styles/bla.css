@@ -1,0 +1,79 @@
+/* Login.css */
+
+/* Genel stil */
+.auth-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #f8f9fa; /* Açık gri arka plan */
+    border-radius: 8px; /* Köşeleri yuvarlat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+  }
+  
+  /* Başlık */
+  .auth-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #343a40; /* Koyu gri renk */
+  }
+  
+  /* Form grupları */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Form etiketleri */
+  .form-label {
+    font-weight: 500;
+    color: #495057; /* Koyu gri renk */
+  }
+  
+  /* Form kontrolleri */
+  .form-control {
+    border: 1px solid #ced4da; /* Açık gri kenarlık */
+    border-radius: 4px; /* Köşeleri yuvarlat */
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  /* Başarı ve hata mesajları */
+  .alert {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Buton */
+  button[type="submit"] {
+    background-color: #007bff; /* Mavi arka plan */
+    border: none; /* Kenarlık yok */
+    color: #fff; /* Beyaz metin */
+    padding: 0.75rem;
+    border-radius: 4px; /* Köşeleri yuvarlat */
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* Buton üzerine gelindiğinde */
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Koyu mavi arka plan */
+  }
+  
+  /* Bağlantılar */
+  a {
+    color: #007bff; /* Mavi renk */
+    text-decoration: none; /* Alt çizgi yok */
+  }
+  
+  a:hover {
+    text-decoration: underline; /* Üzerine gelindiğinde altı çizili */
+  }
+  
+  /* Alt bağlantılar */
+  p.text-center {
+    margin-top: 1.5rem;
+  }
+  
+  p.text-center a {
+    font-weight: 500;
+  }
+  

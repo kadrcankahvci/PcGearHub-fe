@@ -2,7 +2,7 @@
 
 import React from 'react';
 import '../styles/HeroBanner.css'; // CSS dosyanızı buraya import edin
-import heroImage from '../assets/hero-image.jpg'; // Resminizi buraya import edin
+import heroImage from '../assets/images/hero-image.jpg'; // Resminizi buraya import edin
 
 const HeroBanner = () => {
   return (
